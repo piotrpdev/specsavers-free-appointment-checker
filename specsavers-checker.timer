@@ -1,5 +1,5 @@
 [Unit]
-Description=Checks for free SpecSavers appointments every 15 minutes (Mon-Sat, 9 AM - 5:30 PM)
+Description=Checks for free SpecSavers appointments every 15 minutes (Mon-Sun, 10 AM - 11:45 PM)
 
 [Timer]
 # Every 15 minutes from 10:00 AM to 11:45 PM
