@@ -1,0 +1,9 @@
+[package]
+name = "specsavers-checker"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+minreq = { version = "2.12", features = ["https-rustls"] }
+nanoserde = "0.1"
+chrono = "0.4"

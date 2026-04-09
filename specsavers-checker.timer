@@ -1,0 +1,12 @@
+[Unit]
+Description=Checks for free SpecSavers appointments every 15 minutes (Mon-Sat, 9 AM - 5:30 PM)
+
+[Timer]
+# Every 15 minutes from 9:00 AM to 4:45 PM, Monday through Saturday
+OnCalendar=Mon..Sat 09..16:00,15,30,45
+# 5:00 PM, 5:15 PM, and 5:30 PM, Monday through Saturday
+OnCalendar=Mon..Sat 17:00,15,30
+Persistent=true
+
+[Install]
+WantedBy=timers.target

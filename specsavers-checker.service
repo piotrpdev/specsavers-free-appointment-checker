@@ -1,0 +1,23 @@
+[Unit]
+Description=Checks for free SpecSavers appointments and posts them to Discord
+After=network-online.target
+Wants=network-online.target
+
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=pplaczek
+Group=pplaczek
+WorkingDirectory=/home/pplaczek/specsavers-free-appointment-checker/
+ExecStart=/home/pplaczek/specsavers-free-appointment-checker/target/release/specsavers-checker
+Restart=on-failure
+RestartSec=5s
+Environment=DISCORD_WEBHOOK_URL='https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN'
+Environment=GRAPHQL_URL='https://www.specsavers.ie/graphql'
+Environment=STORE_NUMBER='2402'
+Environment=DAYS_AHEAD='14'
+
+[Install]
+WantedBy=multi-user.target
