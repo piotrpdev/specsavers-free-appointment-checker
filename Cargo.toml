@@ -4,6 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-minreq = { version = "2.12", features = ["https-rustls"] }
-nanoserde = "0.1"
-chrono = "0.4"
+minreq = { version = "2.14", default-features = false, features = [ "https" ] }
+nanoserde = { version = "0.2", default-features = false, features = [ "std", "json" ] }
+chrono = { version = "0.4", default-features = false , features = [ "alloc", "std", "clock", "now" ] }
