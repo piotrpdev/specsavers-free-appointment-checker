@@ -2,10 +2,8 @@
 Description=Checks for free SpecSavers appointments every 15 minutes (Mon-Sat, 9 AM - 5:30 PM)
 
 [Timer]
-# Every 15 minutes from 9:00 AM to 4:45 PM, Monday through Saturday
-OnCalendar=Mon..Sat 09..16:00,15,30,45
-# 5:00 PM, 5:15 PM, and 5:30 PM, Monday through Saturday
-OnCalendar=Mon..Sat 17:00,15,30
+# Every 15 minutes from 10:00 AM to 11:45 PM
+OnCalendar=10..23:00,15,30,45
 Persistent=true
 
 [Install]
