@@ -33,6 +33,7 @@ struct AppointmentSlot {
     id: String,
     #[nserde(rename = "clinicId")]
     clinic_id: Option<String>,
+    date: Option<String>,
     #[nserde(rename = "slotType")]
     slot_type: String,
     #[nserde(rename = "startTime")]
@@ -141,7 +142,11 @@ fn fetch_appointments(graphql_url: &str, start_date: &str, end_date: &str, store
     let mut all_slots = Vec::new();
     for store_slots in graphql_response.data.store_appointment_slots {
         for available in store_slots.available_slots {
-            all_slots.extend(available.appointment_slots);
+            let date = available.date.clone();
+            for mut slot in available.appointment_slots {
+                slot.date = Some(date.clone());
+                all_slots.push(slot);
+            }
         }
     }
 
@@ -152,9 +157,19 @@ fn send_to_discord(webhook_url: &str, appointments: &[AppointmentSlot]) -> Resul
     let mut message = String::from("**New SpecSavers Appointments Available!**\n\n");
 
     for appt in appointments {
+        let formatted_date = if let Some(date_str) = &appt.date {
+            if let Ok(date) = chrono::NaiveDate::parse_from_str(date_str, "%Y-%m-%d") {
+                date.format("%a %b %d").to_string()
+            } else {
+                "Unknown date".to_string()
+            }
+        } else {
+            "Unknown date".to_string()
+        };
+
         message.push_str(&format!(
-            "📅 **{}** - {} to {}\n",
-            appt.start_time, appt.start_time, appt.end_time
+            "- **{}** - {} to {}\n",
+            formatted_date, appt.start_time, appt.end_time
         ));
     }
 
